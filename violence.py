@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import cv2
 
-model = YOLO('violence.pt')
+model = YOLO('models/violence.pt')
 
 def detect_violence(frame):
     """Detect violence in the frame and return violence status (True/False)"""

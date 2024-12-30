@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import cv2
 
-model = YOLO('weapons.pt')
+model = YOLO('models/weapons.pt')
 
 def detect_weapons(frame):
     """Detect weapons in the frame and return weapon status (True/False)"""

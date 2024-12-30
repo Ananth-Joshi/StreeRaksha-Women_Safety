@@ -4,10 +4,10 @@ import numpy as np
 from keras.models import load_model
 
 # Load your YOLO model
-model = YOLO('yolo11s.pt')
+model = YOLO('models/yolo11s.pt')
 
 # Load the gender classification model
-gender_model = load_model('gender_model.h5')
+gender_model = load_model('models/gender_model.h5')
 
 def predict_gender(cropped_person):
     if cropped_person.size > 0:
