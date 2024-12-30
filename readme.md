@@ -109,6 +109,7 @@ streeRaksha/
 ├── .gitattributes              # Git LFS tracking configuration
 ├── .gitignore                  # Git ignore file
 ├── person_detection.py         # Python script for detecting persons
+├── gender_classification.ipynb #
 ├── readme.md                   # This README file
 ├── requirements.txt            # Python dependencies
 ├── server.py                   # Backend server script
