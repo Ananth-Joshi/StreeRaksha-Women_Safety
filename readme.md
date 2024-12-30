@@ -119,4 +119,8 @@ streeRaksha/
 
 ## Results
 
+![Screenshot 2024-12-30 171122](https://github.com/user-attachments/assets/2f854148-1583-41e7-936a-02074ddda484)
+![WhatsApp Image 2024-12-30 at 17 13 13_d1996f69](https://github.com/user-attachments/assets/a56b4010-f90c-4571-b2a1-22967a6d5612)
+
+
 
