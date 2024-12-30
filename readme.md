@@ -95,3 +95,24 @@ This will open the frontend in a window.
   
 ---
 ## Project Structure
+
+```
+streeRaksha/
+├── frontend/                   # Contains the Electron frontend application
+│   ├── (Electron files and folders)
+├── models/                     # Contains the trained machine learning models
+│   ├── gender_model.h5         # Model for gender classification
+│   ├── violence.pt             # Model for violence detection
+│   ├── weapons.pt              # Model for weapon detection
+│   ├── yolo11s.pt              # YOLO model for object detection
+├── .env.example                # Example environment variable configuration
+├── .gitattributes              # Git LFS tracking configuration
+├── .gitignore                  # Git ignore file
+├── person_detection.py         # Python script for detecting persons
+├── readme.md                   # This README file
+├── requirements.txt            # Python dependencies
+├── server.py                   # Backend server script
+├── sms_service.py              # SMS service script for notifications
+├── violence.py                 # Violence detection logic
+├── weapons.py                  # Weapons detection logic
+```
