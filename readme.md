@@ -75,7 +75,7 @@ Once you've set up everything, run the backend application:
 
 ```bash
 
-python  app.py
+python  server.py
 
 ```
 This will start the system, monitor the environment through surveillance cameras, and send alerts when necessary.
