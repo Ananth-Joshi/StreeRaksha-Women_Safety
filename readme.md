@@ -119,6 +119,4 @@ streeRaksha/
 
 ## Results
 
-![result on frontend](image.png)
-![SOS messages](<WhatsApp Image 2024-12-30 at 17.13.13_4975427c.jpg>)
 
