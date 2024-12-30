@@ -1,0 +1,8 @@
+opencv-python
+ultralytics
+torch
+torchvision
+torchaudio
+flask
+flask_socketio
+python-dotenv

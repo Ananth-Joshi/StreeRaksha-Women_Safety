@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2d2d;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: white;
+        }
+
+        #metrics {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .metric {
+            width: 250px;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e0e0e0;
+            transition: background-color 0.3s;
+        }
+
+        .metric span {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .metric-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .violence {
+            background-color: #ff4d4d; /* Red for violence */
+        }
+
+        .weapons {
+            background-color: #ff4d4d; /* Red for weapons */
+        }
+
+        .persons {
+            background-color: #4CAF50; /* Green for persons */
+        }
+
+        #videoFeed {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Real-Time Detection</h1>
+
+    <h3>Detection Metrics</h3>
+    <div id="metrics">
+        <div id="violence" class="metric">
+            <img src="icons/violence-icon.svg" alt="Violence Logo" class="metric-logo" />
+            <span>Violence:</span> <span id="violence-value">Loading...</span>
+        </div>
+        <div id="weapons" class="metric">
+            <img src="icons/weapon-icon.svg" alt="Weapons Logo" class="metric-logo" />
+            <span>Weapons:</span> <span id="weapons-value">Loading...</span>
+        </div>
+        <div id="persons" class="metric">
+            <img src="icons/person-icon.svg" alt="Persons Logo" class="metric-logo" />
+            <span>Persons:</span> <span id="persons-value">Loading...</span>
+        </div>
+        <div id="male-count" class="metric">
+            <img src="icons/male-icon.svg" alt="Male Logo" class="metric-logo" />
+            <span>Males:</span> <span id="male-count-value">Loading...</span>
+        </div>
+        <div id="female-count" class="metric">
+            <img src="icons/female-icon.svg" alt="Female Logo" class="metric-logo" />
+            <span>Females:</span> <span id="female-count-value">Loading...</span>
+        </div>
+    </div>
+
+    <h3>Live Video Feed</h3>
+    <img id="videoFeed" width="640" height="480" />
+
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        // Connect to WebSocket server
+        const socket = io('http://localhost:5000');
+
+        // Handle incoming video frames
+        socket.on('video_frame', (frameBytes) => {
+            const blob = new Blob([frameBytes], { type: 'image/jpeg' });
+            const imgUrl = URL.createObjectURL(blob);
+            const videoFeed = document.getElementById('videoFeed');
+            videoFeed.src = imgUrl;  // Update the image with the latest frame
+        });
+
+        // Handle incoming detection metrics
+        socket.on('detection_metrics', (data) => {
+            const violenceElement = document.getElementById('violence');
+            const weaponsElement = document.getElementById('weapons');
+            const personsElement = document.getElementById('persons');
+            const maleCountElement = document.getElementById('male-count');
+            const femaleCountElement = document.getElementById('female-count');
+
+            // Update violence metric
+            const violenceValue = data.violence ? 'Detected 🚨' : 'No Violence';
+            document.getElementById('violence-value').innerHTML = violenceValue;
+            if (data.violence) {
+                violenceElement.classList.add('violence');
+            } else {
+                violenceElement.classList.remove('violence');
+            }
+
+            // Update weapons metric
+            const weaponsValue = data.weapons ? 'Detected 🔫' : 'No Weapons';
+            document.getElementById('weapons-value').innerHTML = weaponsValue;
+            if (data.weapons) {
+                weaponsElement.classList.add('weapons');
+            } else {
+                weaponsElement.classList.remove('weapons');
+            }
+
+            // Update persons metric
+            const personsValue = `${data.persons} Person${data.persons !== 1 ? 's' : ''}`;
+            document.getElementById('persons-value').innerHTML = personsValue;
+            personsElement.classList.add('persons');
+
+            // Update male and female count
+            document.getElementById('male-count-value').innerHTML = `${data.male_count} Males`;
+            document.getElementById('female-count-value').innerHTML = `${data.female_count} Females`;
+        });
+
+    </script>
+</body>
+</html>
